@@ -9,6 +9,7 @@ const shot string = "S"
 const revenge string = "R"
 const goodBoy string = "Good boy"
 const badBoy string = "Bad boy"
+const invalidInput string = "invalid input"
 
 var output string = goodBoy
 
@@ -24,11 +25,12 @@ func printOutput(input string) {
 	  Good boy: "SRSSRRR", "SSRR"*/
 	var numOfShot = strings.Count(input, shot)
 	var numOfRevenge = strings.Count(input, revenge)
-
-	if strings.HasPrefix(input, revenge) || strings.HasSuffix(input, shot) || numOfShot > numOfRevenge {
-		output = badBoy
-	} else if numOfShot == numOfRevenge {
-		checkCaseShotEqualRevenge(input)
+	if !checkInValidInput(input) {
+		if strings.HasPrefix(input, revenge) || strings.HasSuffix(input, shot) || numOfShot > numOfRevenge {
+			output = badBoy
+		} else if numOfShot == numOfRevenge {
+			checkCaseShotEqualRevenge(input)
+		}
 	}
 
 	fmt.Println("Output: ", output)
@@ -59,4 +61,14 @@ func checkCaseShotEqualRevenge(input string) {
 	if countShots > countRevenges {
 		output = badBoy
 	}
+}
+
+func checkInValidInput(input string) bool {
+	var replaceInput string = strings.ReplaceAll(input, shot, "")
+	replaceInput = strings.ReplaceAll(replaceInput, revenge, "")
+	var isInvalid bool = replaceInput != "" || input == ""
+	if isInvalid {
+		output = invalidInput
+	}
+	return isInvalid
 }
