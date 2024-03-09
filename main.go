@@ -66,7 +66,7 @@ func checkCaseShotEqualRevenge(input string) {
 func checkInValidInput(input string) bool {
 	var replaceInput string = strings.ReplaceAll(input, shot, "")
 	replaceInput = strings.ReplaceAll(replaceInput, revenge, "")
-	var isInvalid bool = replaceInput != "" || input == ""
+	var isInvalid bool = replaceInput != "" || input == "" || len(input) > 1000000
 	if isInvalid {
 		output = invalidInput
 	}
